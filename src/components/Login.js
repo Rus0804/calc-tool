@@ -7,49 +7,38 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [isSigningUp, setIsSigningUp] = useState(false);
 
   async function signInWithEmail() {
     setLoading(true);
     setErrorMsg('');
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const res = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     setLoading(false);
 
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
-      setUser(data.user);
+    if (res.error) {
+      setErrorMsg(res.error.message);
     }
   }
 
   async function signUpWithEmail() {
     setLoading(true);
     setErrorMsg('');
-    const { data, error } = await supabase.auth.signUp({
+    const res = await supabase.auth.signUp({
       email,
       password,
     });
     setLoading(false);
 
-    if (error) {
-      setErrorMsg(error.message);
+    if (res.error) {
+      setErrorMsg(res.error.message);
     } else {
-      setUser(data.user);
       // Optionally inform users to confirm their email
       alert('Sign up successful! Please check your email to confirm your account.');
     }
-  }
-
-  async function signOut() {
-    await supabase.auth.signOut();
-    setUser(null);
-    setIsSigningUp(false);
-    setEmail('');
-    setPassword('');
   }
 
   return (
