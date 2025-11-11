@@ -1,0 +1,48 @@
+.input-table {
+  margin-bottom: 16px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.input-table th, .input-table td {
+  border: 1px solid #ececec;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.btn {
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  margin-right: 14px;
+}
+
+.btn-add {
+  background-color: #23ad5c;
+}
+
+.btn-calc {
+  background-color: #304ffe;
+}
+
+.btn-delete {
+  background-color: #fe5555;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-delete:hover {
+  background-color: #c00;
+}
+
+.error-text {
+  color: #c00;
+  font-size: 12px;
+}

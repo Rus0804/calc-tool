@@ -1,0 +1,96 @@
+
+        .stationary-combustion {
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          margin: 20px 0;
+        }
+
+        .input-row {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr auto;
+          gap: 15px;
+          align-items: end;
+          margin-bottom: 15px;
+          padding: 15px;
+          border: 1px solid #eee;
+          border-radius: 4px;
+        }
+
+        .fuel-select, .quantity-input, .unit-select {
+          display: flex;
+          flex-direction: column;
+        }
+
+        label {
+          font-weight: bold;
+          margin-bottom: 5px;
+          font-size: 14px;
+        }
+
+        select, input {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 14px;
+        }
+
+        input[type="number"] {
+          width: 100%;
+        }
+
+        .remove-btn, .add-btn, .calculate-btn {
+          padding: 8px 16px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+        }
+
+        .remove-btn {
+          background-color: #ff4757;
+          color: white;
+        }
+
+        .add-btn {
+          background-color: #2ed573;
+          color: white;
+          margin-right: 10px;
+        }
+
+        .calculate-btn {
+          background-color: #3742fa;
+          color: white;
+        }
+
+        .remove-btn:hover {
+          background-color: #ff3838;
+        }
+
+        .add-btn:hover {
+          background-color: #26d063;
+        }
+
+        .calculate-btn:hover {
+          background-color: #2f3af2;
+        }
+
+        .error-message {
+          grid-column: 1 / -1;
+          color: #ff4757;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+
+        .actions {
+          margin-top: 20px;
+          display: flex;
+          gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+          .input-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+        }

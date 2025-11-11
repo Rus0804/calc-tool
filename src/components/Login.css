@@ -1,0 +1,72 @@
+/* src/components/Login.css */
+
+.login-container {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+  outline: none;
+  border-color: #5c6ac4;
+  box-shadow: 0 0 5px rgba(92, 106, 196, 0.5);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #5c6ac4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1 rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:disabled {
+  background-color: #a0a0d3;
+  cursor: not-allowed;
+}
+
+.login-container button:hover:not(:disabled) {
+  background-color: #4a559d;
+}
+
+.login-container p.error-message {
+  margin-top: 0.5rem;
+  color: #e63946;
+  font-size: 0.9rem;
+  text-align: center;
+}

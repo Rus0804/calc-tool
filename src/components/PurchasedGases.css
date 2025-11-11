@@ -1,0 +1,72 @@
+.purchased-gases {
+  margin: 1rem auto;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.select-input,
+.text-input {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #888;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.select-input:focus,
+.text-input:focus {
+  outline: none;
+  border-color: #1976d2; /* Blue accent */
+  box-shadow: 0 0 4px #1976d2;
+}
+
+.calculate-btn {
+  width: 100%;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.calculate-btn:hover {
+  background-color: #004ba0;
+}
+
+.error-message {
+  color: #d32f2f;
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .input-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

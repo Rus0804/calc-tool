@@ -1,0 +1,5 @@
+export const GWP = {
+  CO2: 1,
+  CH4: 28,
+  N2O: 265
+};
