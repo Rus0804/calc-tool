@@ -4,15 +4,15 @@ import Login from "./components/Login";
 import { supabase } from "./data/db";
 import StationaryCombustion from "./components/StationaryCombustion";
 import MobileSources from "./components/MobileSources";
-// import Electricity from "./components/Electricity";
+import Electricity from "./components/Electricity";
 import RefrigerationAC from "./components/RefrigerationAC";
-// import Waste from "./components/Waste";
+import Waste from "./components/Waste";
 import Summary from "./components/Summary";
 import Navigation from "./components/Navigation";
-// import Steam from "./components/Steam";
-// import BusinessTravel from "./components/BusinessTravel";
-// import Commuting from "./components/Commuting";
-// import UpstreamTransportation from "./components/UpstreamTransportation";
+import Steam from "./components/Steam";
+import BusinessTravel from "./components/BusinessTravel";
+import Commuting from "./components/Commuting";
+import UpstreamTransportation from "./components/UpstreamTransportation";
 import PurchasedGases from "./components/PurchasedGases";
 import FireSuppression from "./components/FireSuppression";
 import Offsets from "./components/Offsets";
@@ -26,12 +26,12 @@ const TABS = [
   "Purchased Gases",
   "Fire Suppression",
   "Refrigeration",
-  // "Waste",
-  // "Electricity",
-  // "Steam",
-  // "Business Travel",
-  // "Commuting",
-  // "Upstream Transportation", 
+  "Waste",
+  "Electricity",
+  "Steam",
+  "Business Travel",
+  "Commuting",
+  "Upstream Transportation", 
   "Offsets",
   "Summary",
 ];
@@ -46,13 +46,13 @@ export default function App() {
   // State for each input section
   const [stationaryCombustion, setStationaryCombustion] = useState([]);
   const [mobileSources, setMobileSources] = useState([]);
-  // const [electricity, setElectricity] = useState([]);
+  const [electricity, setElectricity] = useState([]);
   const [refrigeration, setRefrigeration] = useState([]);
-  // const [waste, setWaste] = useState([]);
-  // const [steam, setSteam] = useState([]);
-  // const [businessTravel, setBusinessTravel] = useState([]);
-  // const [commuting, setCommuting] = useState([]);
-  // const [upstreamTransportation, setUpstreamTransportation] = useState([]);
+  const [waste, setWaste] = useState([]);
+  const [steam, setSteam] = useState([]);
+  const [businessTravel, setBusinessTravel] = useState([]);
+  const [commuting, setCommuting] = useState([]);
+  const [upstreamTransportation, setUpstreamTransportation] = useState([]);
   const [purchasedGases, setPurchasedGases] = useState([]);
   const [fireSuppression, setFireSuppression] = useState([]);
   const [offsets, setOffsets] = useState([]);
@@ -140,12 +140,12 @@ export default function App() {
             setPurchasedGases={setPurchasedGases}
             setFireSuppression={setFireSuppression}
             setRefrigeration={setRefrigeration}
-            // setWaste={setWaste}
-            // setElectricity={setElectricity}
-            // setSteam={setSteam}
-            // setBusinessTravel={setBusinessTravel}
-            // setCommuting={setCommuting}
-            // setUpstreamTransportation={setUpstreamTransportation}
+            setWaste={setWaste}
+            setElectricity={setElectricity}
+            setSteam={setSteam}
+            setBusinessTravel={setBusinessTravel}
+            setCommuting={setCommuting}
+            setUpstreamTransportation={setUpstreamTransportation}
             setOffsets={setOffsets}
             setPage={setPage}
             setNav={setNav}
@@ -237,15 +237,6 @@ export default function App() {
               />
             )}
             {nav === 5 && (
-              <Offsets
-                data={offsets}
-                onResult={(val) => handleResult("offsets", val)}
-                setData={setOffsets}
-              />
-            )}
-            {nav === 6 && <Summary data={results} />}
-
-            {/* {nav === 5 && (
               <Waste
                 data={waste}
                 onResult={(val) => handleResult("waste", val)}
@@ -267,20 +258,33 @@ export default function App() {
               <BusinessTravel
                 data={businessTravel}
                 onResult={(val) => handleResult("busTravel", val)}
+                setData={setBusinessTravel}
               />
             )}
             {nav === 9 && (
               <Commuting
                 data={commuting}
                 onResult={(val) => handleResult("commuting", val)}
+                setData={setCommuting}
               />
             )}
             {nav === 10 && (
               <UpstreamTransportation
                 data={upstreamTransportation}
                 onResult={(val) => handleResult("upstream", val)}
+                setData={setUpstreamTransportation}
               />
-            )} */}
+            )}
+            {nav === 11 && (
+              <Offsets
+                data={offsets}
+                onResult={(val) => handleResult("offsets", val)}
+                setData={setOffsets}
+              />
+            )}
+            {nav === 12 && <Summary data={results} />}
+
+            
           </Box>
         </Container>
       </>
