@@ -2,55 +2,77 @@ export const mass = {
   'pounds (lb)': {
     'kilogram (kg)': 0.453592,
     'metric ton': 0.000453592,
-    'short ton': 0.0005
+    'short ton': 0.0005,
+    'gram (g)': 453.592,
   },
   'kilogram (kg)': {
     'pounds (lb)': 2.20462,
+    'gram (g)': 1000,
     'metric ton': 0.001,
     'short ton': 0.00110231
   },
   'metric ton': {
     'kilogram (kg)': 1000,
     'pounds (lb)': 2204.62,
-    'short ton': 1.10231
+    'short ton': 1.10231,
+    'gram (g)': 1000000,
   },
   'short ton': {
     'kilogram (kg)': 907.18474,
     'pounds (lb)': 2000,
-    'metric ton': 0.90718474
+    'metric ton': 0.90718474,
+    'gram (g)': 907184.74
   },
   'gram (g)': {
     'kilogram (kg)': 0.001,
     'pounds (lb)': 0.00220462,
+    'metric ton': 0.000001,
+    'short ton': 0.00000110231,
   }
 };
 
 export const volume = {
   'gallon (gal, US)': {
     'liter (L)': 3.78541,
-    'barrel (bbl)': 0.0238095
+    'barrel (bbl)': 0.0238095,
+    'cubic meter (m3)': 0.00378541253,
+    'standard cubic foot (scf)': 0.13368047619,
+    'cubic foot (ft3)': 0.13368047619,
   },
   'liter (L)': {
     'gallon (gal, US)': 0.264172,
-    'cubic meter (m3)': 0.001
+    'barrel (bbl)' : 0.00628982243,
+    'cubic meter (m3)': 0.001,
+    'standard cubic foot (scf)': 0.03531472482,
+    'cubic foot (ft3)': 0.03531472482
   },
   'barrel (bbl)': {
     'gallon (gal, US)': 42,
-    'liter (L)': 158.987
+    'liter (L)': 158.987,
+    'cubic meter (m3)': 0.158987,
+    'standard cubic foot (scf)': 5.61458,
+    'cubic foot (ft3)': 5.61458
   },
   'cubic meter (m3)': {
     'liter (L)': 1000,
-    'gallon (gal, US)': 264.172
+    'gallon (gal, US)': 264.172,
+    'barrel (bbl)': 6.28981,
+    'standard cubic foot (scf)': 35.3147248277,
+    'cubic foot': 35.3147248277,
   },
   'standard cubic foot (scf)': {
     'cubic foot (ft3)': 1,
     'cubic meter (m3)': 0.0283168,
-    'liter (L)': 28.3168
+    'liter (L)': 28.3168,
+    'gallon (gal, US)': 7.48052392164,
+    'barrel (bbl)': 0.17810771242
   },
   'cubic foot (ft3)': {
     'standard cubic foot (scf)': 1,
     'cubic meter (m3)': 0.0283168,
-    'liter (L)': 28.3168
+    'liter (L)': 28.3168,
+    'gallon (gal, US)': 7.48052392164,
+    'barrel (bbl)': 0.17810771242
   }
 };
 
