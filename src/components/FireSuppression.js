@@ -148,7 +148,7 @@ export default function FireSuppression({ data = [], onResult, setData }) {
     // Update parent only after successful calculation
     updateParent();
 
-    onResult({ co2e: totalCo2e.toFixed(2) });
+    onResult({ co2e: totalCo2e });
   }
 
   return (

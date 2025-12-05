@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { refrigerantGWP } from "../data/emissionFactors";
+import { GWP } from "../data/gwpTable";
 import { logInputsBatchToSupabase } from "../data/db";
 import "./RefrigerationAC.css";
 
@@ -27,7 +27,7 @@ const calculationOptions = [
 function createEmptyRow() {
   return {
     equipmentType: equipmentTypes[0],
-    gas: Object.keys(refrigerantGWP)[0],
+    gas: Object.keys(GWP)[0],
     inventoryChange: "",
     transferred: "",
     capacityChange: "",
@@ -127,7 +127,7 @@ export default function RefrigerationAC({ data = [], onResult, setData }) {
 
     let totalCo2e = 0;
     rows.forEach((row) => {
-      const GWP = refrigerantGWP[row.gas] || 0;
+      const gwp = GWP[row.gas] || 0;
       let emissionMass = 0;
 
       if (calculationOption === "Material Balance Method") {
@@ -147,7 +147,7 @@ export default function RefrigerationAC({ data = [], onResult, setData }) {
           12;
       }
 
-      totalCo2e += (emissionMass * GWP) / 1000;
+      totalCo2e += (emissionMass * gwp) / 1000;
     });
 
     onResult({ co2e: totalCo2e });
@@ -196,7 +196,7 @@ export default function RefrigerationAC({ data = [], onResult, setData }) {
               value={row.gas}
               onChange={(e) => handleRowChange(i, "gas", e.target.value)}
             >
-              {Object.keys(refrigerantGWP).map((g) => (
+              {Object.keys(GWP).map((g) => (
                 <option key={g} value={g}>
                   {g}
                 </option>

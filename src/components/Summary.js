@@ -6,6 +6,7 @@ function sumValues(values) {
 }
 
 export default function Summary({ data, meta }) {
+  console.log(data)
   function getCO2e(sectionKey) {
     const sectionData = data?.[sectionKey];
     if (!sectionData) return 0;
@@ -29,8 +30,8 @@ export default function Summary({ data, meta }) {
     getCO2e("purchasedGases"),
   ]);
 
-  const grossScope2Loc = (data?.elec?.loc_co2e || 0) + (data?.steam?.loc_co2e || 0);
-  const grossScope2Mkt = (data?.elec?.mkt_co2e || 0) + (data?.steam?.mkt_co2e || 0);
+  const grossScope2Loc = (data?.elec?.total_loc_CO2e || 0) + (data?.steam?.total_loc_co2e || 0);
+  const grossScope2Mkt = (data?.elec?.mkt_CO2e || 0) + (data?.steam?.mkt_co2e || 0);
 
   const grossScope3 = sumValues([
     getCO2e("busTravel"),
@@ -39,10 +40,10 @@ export default function Summary({ data, meta }) {
     getCO2e("waste"),
   ]);
 
-  const offsetsScope1 = data?.offsets?.scope1 || 0;
-  const offsetsScope2Loc = data?.offsets?.scope2Loc || 0;
-  const offsetsScope2Mkt = data?.offsets?.scope2Mkt || 0;
-  const offsetsScope3 = data?.offsets?.scope3 || 0;
+  const offsetsScope1 = data?.offsets?.scope1Offsets || 0;
+  const offsetsScope2Loc = data?.offsets?.scope2locOffsets || 0;
+  const offsetsScope2Mkt = data?.offsets?.scope2mktOffsets || 0;
+  const offsetsScope3 = data?.offsets?.scope3Offsets || 0;
 
   const total =
     grossScope1 - Math.abs(offsetsScope1) +
@@ -67,26 +68,26 @@ export default function Summary({ data, meta }) {
         ["Fire Suppression", getCO2e("fireSuppression")],
         ["Purchased Gases", getCO2e("purchasedGases")],
         ["Gross Scope 1", grossScope1],
-        ["Offsets", offsetsScope1 ? -Math.abs(offsetsScope1) : undefined],
-        ["Net Scope 1", grossScope1 - Math.abs(offsetsScope1)],
+        ["Offsets", offsetsScope1 ? -Math.abs(offsetsScope1) : 0],
+        ["Net Scope 1", (grossScope1 - Math.abs(offsetsScope1)) > 0? grossScope1 - Math.abs(offsetsScope1): 0],
       ]
     },
     {
       section: "Scope 2 (Location-Based)", items: [
-        ["Electricity", data?.elec?.loc_co2e || 0],
+        ["Electricity", data?.elec?.total_loc_CO2e || 0],
         ["Steam", data?.steam?.loc_co2e || 0],
         ["Gross Scope 2 (Loc)", grossScope2Loc],
-        ["Offsets", offsetsScope2Loc ? -Math.abs(offsetsScope2Loc) : undefined],
-        ["Net Scope 2 (Loc)", grossScope2Loc - Math.abs(offsetsScope2Loc)],
+        ["Offsets", offsetsScope2Loc ? -Math.abs(offsetsScope2Loc) : 0],
+        ["Net Scope 2 (Loc)", (grossScope2Loc - Math.abs(offsetsScope2Loc)) > 0? grossScope2Loc - Math.abs(offsetsScope2Loc): 0],
       ]
     },
     {
       section: "Scope 2 (Market-Based)", items: [
-        ["Electricity", data?.elec?.mkt_co2e || 0],
+        ["Electricity", data?.elec?.mkt_CO2e || 0],
         ["Steam", data?.steam?.mkt_co2e || 0],
         ["Gross Scope 2 (Mkt)", grossScope2Mkt],
-        ["Offsets", offsetsScope2Mkt ? -Math.abs(offsetsScope2Mkt) : undefined],
-        ["Net Scope 2 (Mkt)", grossScope2Mkt - Math.abs(offsetsScope2Mkt)],
+        ["Offsets", offsetsScope2Mkt ? -Math.abs(offsetsScope2Mkt) : 0],
+        ["Net Scope 2 (Mkt)", (grossScope2Mkt - Math.abs(offsetsScope2Mkt)) > 0? grossScope2Mkt - Math.abs(offsetsScope2Mkt): 0],
       ]
     },
     {
@@ -96,8 +97,8 @@ export default function Summary({ data, meta }) {
         ["Upstream Transportation", getCO2e("upstream")],
         ["Waste", getCO2e("waste")],
         ["Gross Scope 3", grossScope3],
-        ["Offsets", offsetsScope3 ? -Math.abs(offsetsScope3) : undefined],
-        ["Net Scope 3", grossScope3 - Math.abs(offsetsScope3)],
+        ["Offsets", offsetsScope3 ? -Math.abs(offsetsScope3) : 0],
+        ["Net Scope 3", (grossScope3 - Math.abs(offsetsScope3)) > 0? grossScope3 - Math.abs(offsetsScope3): 0],
       ]
     },
     {
@@ -136,7 +137,7 @@ export default function Summary({ data, meta }) {
 
       <div className="summary-total">
         <h3>
-          Total Net Annual GHG Emissions: {total.toLocaleString()} metric tons CO₂e
+          Total Net Annual GHG Emissions: {(total > 0)?(total.toLocaleString()): '0'} metric tons CO₂e
         </h3>
       </div>
     </div>

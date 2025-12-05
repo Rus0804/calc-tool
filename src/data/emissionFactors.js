@@ -1,5 +1,3 @@
-// src/data/emissionFactors.js
-
 export const stationaryCombustion = {
   "Anthracite Coal":        { co2: 2602, ch4: 276,  n2o: 40,  unit: "short ton" },
   "Bituminous Coal":        { co2: 2325, ch4: 274,  n2o: 40,  unit: "short ton" },
@@ -34,10 +32,6 @@ export const stationaryCombustion = {
   "Rendered Animal Fat":         { co2: 8.88,  ch4: 0.14,  n2o: 0.01,  unit: "gallon" },
   "Vegetable Oil":               { co2: 9.79,  ch4: 0.13,  n2o: 0.01,  unit: "gallon" }
 };
-
-
-// Mobile Combustion Emission Factors
-// Source: EPA Simplified GHG Emissions Calculator, June 2024
 
 export const mobileCombustion = {
   // On-Road Gasoline CH₄/N₂O (grams per mile) by vehicle type and year range
@@ -193,36 +187,527 @@ export const mobileCombustion = {
   },
 };
 
-
 export const electricityEmissionFactors = {
-  "HICC Miscellaneous": { co2: 1155.486, ch4: 0.124, n2o: 0.019 }
+  "ASCC Alaska Grid": { co2: 1052.1, ch4: 0.088, n2o: 0.012 },
+  "ASCC Miscellaneous": { co2: 495.8, ch4: 0.023, n2o: 0.004 },
+  "WECC Southwest": { co2: 776.0, ch4: 0.051, n2o: 0.007 },
+  "WECC California": { co2: 497.4, ch4: 0.030, n2o: 0.004 },
+  "ERCOT All": { co2: 771.1, ch4: 0.049, n2o: 0.007 },
+  "FRCC All": { co2: 813.8, ch4: 0.048, n2o: 0.006 },
+  "HICC Miscellaneous": { co2: 1155.5, ch4: 0.124, n2o: 0.019 },
+  "HICC Oahu": { co2: 1575.4, ch4: 0.163, n2o: 0.025 },
+  "MRO East": { co2: 1479.6, ch4: 0.133, n2o: 0.019 },
+  "MRO West": { co2: 936.5, ch4: 0.102, n2o: 0.015 },
+  "NPCC New England": { co2: 536.4, ch4: 0.063, n2o: 0.008 },
+  "WECC Northwest": { co2: 602.1, ch4: 0.056, n2o: 0.008 },
+  "NPCC NYC/Westchester": { co2: 885.2, ch4: 0.023, n2o: 0.003 },
+  "NPCC Long Island": { co2: 1200.7, ch4: 0.135, n2o: 0.018 },
+  "NPCC Upstate NY": { co2: 274.6, ch4: 0.015, n2o: 0.002 },
+  "Puerto Rico Miscellaneous": { co2: 1593.5, ch4: 0.087, n2o: 0.014 },
+  "RFC East": { co2: 657.4, ch4: 0.045, n2o: 0.006 },
+  "RFC Michigan": { co2: 1216.4, ch4: 0.116, n2o: 0.016 },
+  "RFC West": { co2: 1000.1, ch4: 0.087, n2o: 0.012 },
+  "WECC Rockies": { co2: 1124.9, ch4: 0.101, n2o: 0.014 },
+  "SPP North": { co2: 952.6, ch4: 0.100, n2o: 0.014 },
+  "SPP South": { co2: 970.4, ch4: 0.072, n2o: 0.010 },
+  "SERC Mississippi Valley": { co2: 801.0, ch4: 0.040, n2o: 0.006 },
+  "SERC Midwest": { co2: 1369.9, ch4: 0.151, n2o: 0.022 },
+  "SERC South": { co2: 893.3, ch4: 0.064, n2o: 0.009 },
+  "SERC Tennessee Valley": { co2: 933.1, ch4: 0.082, n2o: 0.012 },
+  "SERC Virginia/Carolina": { co2: 623.0, ch4: 0.047, n2o: 0.007 },
+  "US Average": { co2: 823.1, ch4: 0.066, n2o: 0.009 }
 };
-
-export const refrigerantGWP = {
-  "HFC-32": 677,
-  "HFC-125": 3170,
-  "HFC-134a": 1300,
-  "HFC-143a": 4470,
-  "HFC-152a": 124,
-  "HFC-227ea": 3220,
-  "HFC-236fa": 9810,
-  "PFC-CF4": 7390,
-  "PFC-C2F6": 12200,
-  "PFC-C3F8": 8840,
-  "SF6": 23500,
-  "CO2": 1,
-  // Add additional gases as needed
-};
-
 
 export const wasteFactors = {
-  "Copper Wire": {
+  "Aluminum Cans": {
+    Recycled: 0.06,
     Landfilled: 0.02,
-    Recycled: 0.18,
     Combusted: 0.01,
-    unit: "metric ton"
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Aluminum Ingot": {
+    Recycled: 0.04,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Steel Cans": {
+    Recycled: 0.32,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Copper Wire": {
+    Recycled: 0.18,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Glass": {
+    Recycled: 0.05,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "HDPE": {
+    Recycled: 0.21,
+    Landfilled: 0.02,
+    Combusted: 2.80,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "LDPE": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 2.80,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "PET": {
+    Recycled: 0.23,
+    Landfilled: 0.02,
+    Combusted: 2.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "LLDPE": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 2.80,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "PP": {
+    Recycled: 0.20,
+    Landfilled: 0.02,
+    Combusted: 2.80,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "PS": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 3.02,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "PVC": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 1.26,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "PLA": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: 0.13,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Corrugated Containers": {
+    Recycled: 0.11,
+    Landfilled: 1.0,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Magazines and Third class mail": {
+    Recycled: 0.02,
+    Landfilled: 0.46,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Newspaper": {
+    Recycled: 0.02,
+    Landfilled: 0.39,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Office Paper": {
+    Recycled: 0.02,
+    Landfilled: 1.41,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Phonebooks": {
+    Recycled: 0.04,
+    Landfilled: 0.39,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Textbooks": {
+    Recycled: 0.04,
+    Landfilled: 1.41,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Dimensional Lumber": {
+    Recycled: null,
+    Landfilled: 0.17,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Medium density Fiberboard": {
+    Recycled: null,
+    Landfilled: 0.07,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Food Waste non meat": {
+    Recycled: null,
+    Landfilled: 0.67,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Food Waste meat only": {
+    Recycled: null,
+    Landfilled: 0.69,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Beef": {
+    Recycled: null,
+    Landfilled: 0.64,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Poultry": {
+    Recycled: null,
+    Landfilled: 0.73,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Grains": {
+    Recycled: null,
+    Landfilled: 2.06,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Bread": {
+    Recycled: null,
+    Landfilled: 1.49,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Fruits and Vegetables": {
+    Recycled: null,
+    Landfilled: 0.28,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Dairy Products": {
+    Recycled: null,
+    Landfilled: 0.72,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: 0.14,
+    AnaerobicDigestionWet: 0.11
+  },
+  "Yard Trimmings": {
+    Recycled: null,
+    Landfilled: 0.36,
+    Combusted: 0.05,
+    Composted: 0.14,
+    AnaerobicDigestionDry: 0.11,
+    AnaerobicDigestionWet: null
+  },
+  "Grass": {
+    Recycled: null,
+    Landfilled: 0.28,
+    Combusted: 0.05,
+    Composted: 0.14,
+    AnaerobicDigestionDry: 0.09,
+    AnaerobicDigestionWet: null
+  },
+  "Leaves": {
+    Recycled: null,
+    Landfilled: 0.28,
+    Combusted: 0.05,
+    Composted: 0.14,
+    AnaerobicDigestionDry: 0.12,
+    AnaerobicDigestionWet: null
+  },
+  "Branches": {
+    Recycled: null,
+    Landfilled: 0.58,
+    Combusted: 0.05,
+    Composted: 0.14,
+    AnaerobicDigestionDry: 0.15,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Paper general": {
+    Recycled: 0.07,
+    Landfilled: 0.89,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Paper primarily residential": {
+    Recycled: 0.07,
+    Landfilled: 0.86,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Paper primarily from offices": {
+    Recycled: 0.03,
+    Landfilled: 0.84,
+    Combusted: 0.05,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Metals": {
+    Recycled: 0.23,
+    Landfilled: 0.02,
+    Combusted: 0.01,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Plastics": {
+    Recycled: 0.22,
+    Landfilled: 0.02,
+    Combusted: 2.34,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Recyclables": {
+    Recycled: 0.09,
+    Landfilled: 0.75,
+    Combusted: 0.11,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Food Waste": {
+    Recycled: null,
+    Landfilled: 0.68,
+    Combusted: 0.05,
+    Composted: 0.11,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Organics": {
+    Recycled: null,
+    Landfilled: 0.54,
+    Combusted: 0.05,
+    Composted: 0.13,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed MSW municipal solid waste": {
+    Recycled: null,
+    Landfilled: 0.58,
+    Combusted: 0.43,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Carpet": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 1.68,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Desktop CPUs": {
+    Recycled: 0.01,
+    Landfilled: 0.02,
+    Combusted: 0.40,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Portable Electronic Devices": {
+    Recycled: 0.02,
+    Landfilled: 0.02,
+    Combusted: 0.89,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Flat panel Displays": {
+    Recycled: 0.02,
+    Landfilled: 0.02,
+    Combusted: 0.74,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "CRT Displays": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 0.64,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Electronic Peripherals": {
+    Recycled: 0.05,
+    Landfilled: 0.02,
+    Combusted: 2.23,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Hard copy Devices": {
+    Recycled: 0.01,
+    Landfilled: 0.02,
+    Combusted: 1.92,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Mixed Electronics": {
+    Recycled: 0.02,
+    Landfilled: 0.02,
+    Combusted: 0.96,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Clay Bricks": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Concrete": {
+    Recycled: 0.01,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Fly Ash": {
+    Recycled: 0.01,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Tires": {
+    Recycled: 0.10,
+    Landfilled: 0.02,
+    Combusted: 2.21,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Asphalt Concrete": {
+    Recycled: 0.004,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Asphalt Shingles": {
+    Recycled: 0.03,
+    Landfilled: 0.02,
+    Combusted: 0.70,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Drywall": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Fiberglass Insulation": {
+    Recycled: 0.05,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Structural Steel": {
+    Recycled: 0.04,
+    Landfilled: 0.02,
+    Combusted: null,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Vinyl Flooring": {
+    Recycled: null,
+    Landfilled: 0.02,
+    Combusted: 0.29,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
+  },
+  "Wood Flooring": {
+    Recycled: null,
+    Landfilled: 0.18,
+    Combusted: 0.08,
+    Composted: null,
+    AnaerobicDigestionDry: null,
+    AnaerobicDigestionWet: null
   }
-};
+}
 
 export const steamFactors = {
   "District Steam": 0.053,
@@ -230,21 +715,175 @@ export const steamFactors = {
 };
 
 export const businessTravelFactors = {
-  "Air Travel - Short Haul": 0.15,
-  "Air Travel - Long Haul": 0.11,
-  "Rail": 0.04
+  // Vehicle-miles (e.g., personal car, rental, taxi)
+  "Passenger Car": {
+    co2: 0.306,  // kg CO2/vehicle-mile
+    ch4: 0.009, // g CH4/vehicle-mile  
+    n2o: 0.006   // g N2O/vehicle-mile
+  },
+  "Light-Duty Truck": {
+    co2: 0.405,  // kg CO2/vehicle-mile
+    ch4: 0.011, // g CH4/vehicle-mile
+    n2o: 0.010   // g N2O/vehicle-mile
+  },
+  "Motorcycle": {
+    co2: 0.376,  // kg CO2/vehicle-mile
+    ch4: 0.091,  // g CH4/vehicle-mile
+    n2o: 0.019   // g N2O/vehicle-mile
+  },
+
+  // Passenger-miles (e.g., rail, bus)
+  "Intercity Rail - Northeast Corridor": {
+    co2: 0.058,  // kg CO2/passenger-mile
+    ch4: 0.0055,  // g CH4/passenger-mile
+    n2o: 0.0007   // g N2O/passenger-mile
+  },
+  "Intercity Rail - Other Routes": {
+    co2: 0.150,  // kg CO2/passenger-mile
+    ch4: 0.0117,  // g CH4/passenger-mile
+    n2o: 0.0038   // g N2O/passenger-mile
+  },
+  "Intercity Rail - National Average": {
+    co2: 0.113,  // kg CO2/passenger-mile
+    ch4: 0.0092,  // g CH4/passenger-mile
+    n2o: 0.0026   // g N2O/passenger-mile
+  },
+  "Commuter Rail": {
+    co2: 0.133,  // kg CO2/passenger-mile
+    ch4: 0.0105, // g CH4/passenger-mile
+    n2o: 0.0026   // g N2O/passenger-mile
+  },
+  "Transit Rail (Subway/Tram)": {
+    co2: 0.093,  // kg CO2/passenger-mile
+    ch4: 0.0075,  // g CH4/passenger-mile
+    n2o: 0.001   // g N2O/passenger-mile
+  },
+  "Bus": {
+    co2: 0.071,  // kg CO2/passenger-mile
+    ch4: 0.005,  // g CH4/passenger-mile
+    n2o: 0.0021   // g N2O/passenger-mile
+  },
+
+  // Passenger-miles (air, no radiative forcing multiplier)
+  "Air - Short Haul (<300 miles)": {
+    co2: 0.207,  // kg CO2/passenger-mile
+    ch4: 0.0064,  // g CH4/passenger-mile
+    n2o: 0.0066   // g N2O/passenger-mile
+  },
+  "Air - Medium Haul (300-2300 miles)": {
+    co2: 0.129,  // kg CO2/passenger-mile
+    ch4: 0.0006, // g CH4/passenger-mile
+    n2o: 0.0041   // g N2O/passenger-mile
+  },
+  "Air - Long Haul (>2300 miles)": {
+    co2: 0.163,  // kg CO2/passenger-mile
+    ch4: 0.0006,  // g CH4/passenger-mile
+    n2o: 0.0052   // g N2O/passenger-mile
+  }
+};
+
+export const isPassengerMileMode = (mode) => {
+  return ["Intercity Rail", "Commuter Rail", "Transit Rail", "Bus", "Air"].some((prefix) =>
+    mode.startsWith(prefix)
+  );
 };
 
 export const commutingFactors = {
-  "Passenger Car": 0.25,
-  "Bus": 0.15,
-  "Train": 0.08
+  // Vehicle-miles (e.g., personal car, rental, taxi)
+  "Passenger Car": {
+    co2: 0.306,  // kg CO2/vehicle-mile
+    ch4: 0.009, // g CH4/vehicle-mile  
+    n2o: 0.006   // g N2O/vehicle-mile
+  },
+  "Light-Duty Truck": {
+    co2: 0.405,  // kg CO2/vehicle-mile
+    ch4: 0.011, // g CH4/vehicle-mile
+    n2o: 0.010   // g N2O/vehicle-mile
+  },
+  "Motorcycle": {
+    co2: 0.376,  // kg CO2/vehicle-mile
+    ch4: 0.091,  // g CH4/vehicle-mile
+    n2o: 0.019   // g N2O/vehicle-mile
+  },
+
+  // Passenger-miles (e.g., rail, bus)
+  "Intercity Rail - Northeast Corridor": {
+    co2: 0.058,  // kg CO2/passenger-mile
+    ch4: 0.0055,  // g CH4/passenger-mile
+    n2o: 0.0007   // g N2O/passenger-mile
+  },
+  "Intercity Rail - Other Routes": {
+    co2: 0.150,  // kg CO2/passenger-mile
+    ch4: 0.0117,  // g CH4/passenger-mile
+    n2o: 0.0038   // g N2O/passenger-mile
+  },
+  "Intercity Rail - National Average": {
+    co2: 0.113,  // kg CO2/passenger-mile
+    ch4: 0.0092,  // g CH4/passenger-mile
+    n2o: 0.0026   // g N2O/passenger-mile
+  },
+  "Commuter Rail": {
+    co2: 0.133,  // kg CO2/passenger-mile
+    ch4: 0.0105, // g CH4/passenger-mile
+    n2o: 0.0026   // g N2O/passenger-mile
+  },
+  "Transit Rail (Subway/Tram)": {
+    co2: 0.093,  // kg CO2/passenger-mile
+    ch4: 0.0075,  // g CH4/passenger-mile
+    n2o: 0.001   // g N2O/passenger-mile
+  },
+  "Bus": {
+    co2: 0.071,  // kg CO2/passenger-mile
+    ch4: 0.005,  // g CH4/passenger-mile
+    n2o: 0.0021   // g N2O/passenger-mile
+  },
 };
 
 export const upstreamTransportFactors = {
-  "Truck": 0.15,
-  "Rail": 0.04,
-  "Ship": 0.02
+  // On-road by vehicle-mile (full truckload, etc.)
+  "Medium- and Heavy-Duty Truck (vm)": {
+    basis: "vehicle-mile",     // activity in miles
+    co2: 1.360,                
+    ch4: 0.012,                
+    n2o: 0.038                 
+  },
+  "Passenger Car": {
+    basis: "vehicle-mile",
+    co2: 0.306,               
+    ch4: 0.009,                
+    n2o: 0.006                
+  },
+  "Light-Duty Truck": {
+    basis: "vehicle-mile",
+    co2: 0.405,                
+    ch4: 0.011,               
+    n2o: 0.010                 
+  },
+
+  "Medium- and Heavy-Duty Truck (tm)": {
+    basis: "ton-mile",        
+    co2: 0.168,               
+    ch4: 0.0015,               
+    n2o: 0.0047              
+  },
+  "Rail": {
+    basis: "ton-mile",
+    co2: 0.022,          
+    ch4: 0.0017,               
+    n2o: 0.0005               
+  },
+  "Waterborne Craft": {
+    basis: "ton-mile",
+    co2: 0.082,                
+    ch4: 0.0326,               
+    n2o: 0.0021                
+  },
+  "Aircraft": {
+    basis: "ton-mile",
+    co2: 0.905,                
+    ch4: 0,                    
+    n2o: 0.0279                
+  }
 };
 
 export const purchasedGasesFactors = {
@@ -322,7 +961,6 @@ export const fireSuppressionGWP = {
   "Halon 1301": 7140,
   "Halon 1211": 1890,
 };
-
 
 export const offsetFactors = {
   "Renewable Energy Credits": -1,
