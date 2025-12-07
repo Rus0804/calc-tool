@@ -1,0 +1,138 @@
+/* Steam.css */
+
+.steam-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.steam-title {
+  margin: 0 0 15px 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.steam-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.steam-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr auto;
+  gap: 15px;
+  align-items: end;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.steam-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.steam-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.steam-select,
+.steam-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.steam-input[type="number"] {
+  width: 100%;
+}
+
+.steam-row-actions {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Buttons */
+
+.steam-remove-btn,
+.steam-add-btn,
+.steam-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.steam-remove-btn {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.steam-add-btn {
+  background-color: #2ed573;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.steam-button {
+  background-color: #3742fa;
+  color: #fff;
+}
+
+.steam-remove-btn:hover {
+  background-color: #ff3838;
+}
+
+.steam-add-btn:hover {
+  background-color: #26d063;
+}
+
+.steam-button:hover {
+  background-color: #2f3af2;
+}
+
+.steam-alert {
+  grid-column: 1 / -1;
+  color: #ff4757;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.steam-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.steam-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+.steam-total {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .steam-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .steam-row-actions {
+    justify-content: flex-start;
+  }
+}

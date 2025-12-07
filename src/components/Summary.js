@@ -30,8 +30,8 @@ export default function Summary({ data, meta }) {
     getCO2e("purchasedGases"),
   ]);
 
-  const grossScope2Loc = (data?.elec?.total_loc_CO2e || 0) + (data?.steam?.total_loc_co2e || 0);
-  const grossScope2Mkt = (data?.elec?.mkt_CO2e || 0) + (data?.steam?.mkt_co2e || 0);
+  const grossScope2Loc = (data?.elec?.total_loc_CO2e || 0) + (data?.steam?.total_loc_CO2e || 0);
+  const grossScope2Mkt = (data?.elec?.total_mkt_CO2e || 0) + (data?.steam?.total_mkt_CO2e || 0);
 
   const grossScope3 = sumValues([
     getCO2e("busTravel"),
@@ -75,7 +75,7 @@ export default function Summary({ data, meta }) {
     {
       section: "Scope 2 (Location-Based)", items: [
         ["Electricity", data?.elec?.total_loc_CO2e || 0],
-        ["Steam", data?.steam?.loc_co2e || 0],
+        ["Steam", data?.steam?.total_loc_CO2e || 0],
         ["Gross Scope 2 (Loc)", grossScope2Loc],
         ["Offsets", offsetsScope2Loc ? -Math.abs(offsetsScope2Loc) : 0],
         ["Net Scope 2 (Loc)", (grossScope2Loc - Math.abs(offsetsScope2Loc)) > 0? grossScope2Loc - Math.abs(offsetsScope2Loc): 0],
@@ -83,8 +83,8 @@ export default function Summary({ data, meta }) {
     },
     {
       section: "Scope 2 (Market-Based)", items: [
-        ["Electricity", data?.elec?.mkt_CO2e || 0],
-        ["Steam", data?.steam?.mkt_co2e || 0],
+        ["Electricity", data?.elec?.total_mkt_CO2e || 0],
+        ["Steam", data?.steam?.total_mkt_CO2e || 0],
         ["Gross Scope 2 (Mkt)", grossScope2Mkt],
         ["Offsets", offsetsScope2Mkt ? -Math.abs(offsetsScope2Mkt) : 0],
         ["Net Scope 2 (Mkt)", (grossScope2Mkt - Math.abs(offsetsScope2Mkt)) > 0? grossScope2Mkt - Math.abs(offsetsScope2Mkt): 0],

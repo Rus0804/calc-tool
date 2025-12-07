@@ -710,9 +710,20 @@ export const wasteFactors = {
 }
 
 export const steamFactors = {
-  "District Steam": 0.053,
-  "District Hot Water": 0.045
+  "Natural Gas": { co2: 53.06, ch4: 1.0, n2o: 0.10 },
+  "Distillate Fuel Oil No. 2": { co2: 73.96, ch4: 3.0, n2o: 0.60 },
+  "Residual Fuel Oil No. 6": { co2: 75.10, ch4: 3.0, n2o: 0.60 },
+  "Kerosene": { co2: 75.20, ch4: 3.0, n2o: 0.60 },
+  "Liquefied Petroleum Gases (LPG)": { co2: 61.71, ch4: 3.0, n2o: 0.60 },
+  "Anthracite Coal": { co2: 103.69, ch4: 11, n2o: 1.6 },
+  "Bituminous Coal": { co2: 93.28, ch4: 11, n2o: 1.6 },
+  "Sub-bituminous Coal": { co2: 97.17, ch4: 11, n2o: 1.6 },
+  "Lignite Coal": { co2: 97.72, ch4: 11, n2o: 1.6 },
+  "Mixed Electric Power Sector": { co2: 95.52, ch4: 11, n2o: 1.6 },
+  "Coal Coke": { co2: 113.67, ch4: 11, n2o: 1.6 },
+  "Landfill Gas": { co2: 0, ch4: 3.2, n2o: 0.63 }, // biomass CO2 not reported
 };
+
 
 export const businessTravelFactors = {
   // Vehicle-miles (e.g., personal car, rental, taxi)
