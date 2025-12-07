@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../data/db";
+import { logInputsBatchToSupabase } from "../data/db";
 import "./History.css";
 
 const SECTION_LABELS = {
@@ -19,7 +20,6 @@ const SECTION_LABELS = {
 };
 
 function renderItemDetails(item, section) {
-  // same renderItemDetails function as before (can keep unchanged)
   if (section === "stationary_combustion") {
     return (
       <div className="value-row">
@@ -50,11 +50,11 @@ function renderItemDetails(item, section) {
     return (
       <ul className="section-item-list">
         {Object.entries(item).map(([key, value]) =>
-          key !== 'error' ? (
+          key !== "error" ? (
             <li key={key}>
               <strong>{key}:</strong> {String(value)}
             </li>
-          ) : ''
+          ) : ""
         )}
       </ul>
     );
@@ -84,7 +84,9 @@ export default function History({
 
   useEffect(() => {
     async function fetchHistory() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
       if (!user) {
         setHistory([]);
         setLoading(false);
@@ -125,18 +127,18 @@ export default function History({
 
   async function handleLoadData(recordId) {
     const { data, error } = await supabase
-        .from("Inputs")
-        .select("*")
-        .eq("id", recordId)
-        .single();
+      .from("Inputs")
+      .select("*")
+      .eq("id", recordId)
+      .single();
 
     if (error) {
-        console.error("Failed to load record:", error.message);
-        alert("Failed to load data record.");
-        return;
+      console.error("Failed to load record:", error.message);
+      alert("Failed to load data record.");
+      return;
     }
 
-    localStorage.setItem('rowID', recordId);
+    localStorage.setItem("rowID", recordId);
 
     setStationaryCombustion(data.stationary_combustion || []);
     setMobileSources(data.mobile_sources || []);
@@ -152,9 +154,33 @@ export default function History({
     setOffsets(data.offsets || []);
 
     setPage("calculation");
-    setNav(0); 
+    setNav(0);
   }
 
+  // NEW: rename handler
+  async function handleRename(record) {
+    const currentName = record.project_name || "";
+    const newName = window.prompt("Enter new project name:", currentName);
+
+    if (newName === null) return; // user cancelled
+    if (!newName.trim()) {
+      alert("Project name cannot be empty.");
+      return;
+    }
+
+    // Ensure logInputs updates this specific record
+    localStorage.setItem("rowID", record.id.toString());
+
+    // Update only project_name in this row
+    await logInputsBatchToSupabase("", { project_name: newName.trim() });
+
+    // Reflect change in local state
+    setHistory((prev) =>
+      prev.map((r) =>
+        r.id === record.id ? { ...r, project_name: newName.trim() } : r
+      )
+    );
+  }
 
   if (loading) {
     return <p>Loading history...</p>;
@@ -174,15 +200,25 @@ export default function History({
             return (
               <li key={record.id}>
                 <div className="history-list-header">
+                  <span>{record.project_name} </span>
                   <span>
-                    Submitted on: {new Date(record.created_at).toLocaleString()}
+                    Submitted on:{" "}
+                    {new Date(record.created_at).toLocaleString()}
                   </span>
                   <button
                     onClick={() => handleLoadData(record.id)}
                     className="load-data-button"
-                    aria-label={`Load data from record submitted on ${new Date(record.created_at).toLocaleString()}`}
+                    aria-label={`Load data from record submitted on ${new Date(
+                      record.created_at
+                    ).toLocaleString()}`}
                   >
                     Load Data
+                  </button>
+                  <button
+                    className="rename-project-button"
+                    onClick={() => handleRename(record)}
+                  >
+                    Rename
                   </button>
                 </div>
                 <div>

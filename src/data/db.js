@@ -18,9 +18,21 @@ export async function logInputsBatchToSupabase(tab, rowDataObj) {
   let data, error;
   if (rowID === "0") {
     // Insert new record
+
+    const projectName = window.prompt("Enter project name:");
+    if (!projectName || !projectName.trim()) {
+      // user cancelled or empty name: do not save
+      return;
+    }
+
+    const firstInsertObj = {
+      ...finalObj,
+      project_name: projectName.trim()
+    };
+
     ({ data, error } = await supabase
       .from('Inputs')
-      .insert([finalObj])
+      .insert([firstInsertObj])
       .select());
   } else {
     // Update existing record by id
