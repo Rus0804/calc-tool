@@ -8,7 +8,7 @@ import Electricity from "./components/Electricity";
 import RefrigerationAC from "./components/RefrigerationAC";
 import Waste from "./components/Waste";
 import Summary from "./components/Summary";
-import Navigation from "./components/Navigation";
+// import Navigation from "./components/Navigation"; // no longer used
 import Steam from "./components/Steam";
 import BusinessTravel from "./components/BusinessTravel";
 import Commuting from "./components/Commuting";
@@ -20,27 +20,43 @@ import History from "./components/History";
 import UserDetails from "./components/UserDetails";
 import { CssBaseline, Container, Box, Button } from "@mui/material";
 
-const TABS = [
-  "Stationary Combustion",
-  "Mobile Sources",
-  "Purchased Gases",
-  "Fire Suppression",
-  "Refrigeration",
-  "Waste",
-  "Electricity",
-  "Steam",
-  "Business Travel",
-  "Commuting",
-  "Upstream Transportation", 
-  "Offsets",
-  "Summary",
-];
+const SCOPE_SECTIONS = {
+  "Scope 1": [
+    { key: "stationary", label: "Stationary Combustion" },
+    { key: "mobile", label: "Mobile Sources" },
+    { key: "purchasedGases", label: "Purchased Gases" },
+    { key: "fireSuppression", label: "Fire Suppression" },
+    { key: "refrig", label: "Refrigeration" }
+  ],
+  "Scope 2": [
+    { key: "elec", label: "Electricity" },
+    { key: "steam", label: "Steam" }
+  ],
+  "Scope 3": [
+    { key: "waste", label: "Waste" },
+    { key: "busTravel", label: "Business Travel" },
+    { key: "commuting", label: "Commuting" },
+    { key: "upstream", label: "Upstream Transportation" }
+  ]
+  // Offsets and Summary handled separately
+};
+
+const FIRST_SECTION_BY_SCOPE = {
+  "Scope 1": "stationary",
+  "Scope 2": "elec",
+  "Scope 3": "waste"
+};
 
 export default function App() {
-  const [nav, setNav] = useState(0);
   const [user, setUser] = useState(null);
   const [page, setPage] = useState(
     () => localStorage.getItem("currentPage") || "home"
+  );
+
+  // Scope + section selection for calculation view
+  const [currentScope, setCurrentScope] = useState("Scope 1");
+  const [currentSection, setCurrentSection] = useState(
+    FIRST_SECTION_BY_SCOPE["Scope 1"]
   );
 
   // State for each input section
@@ -62,20 +78,19 @@ export default function App() {
 
   function handleResult(tab, val) {
     setResults((r) => ({ ...r, [tab]: val }));
-    setNav(TABS.length - 1);
   }
 
   useEffect(() => {
     async function checkSession() {
       const {
-        data: { session },
+        data: { session }
       } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
     }
     checkSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_event, session) => {
         setUser(session?.user ?? null);
       }
     );
@@ -87,7 +102,6 @@ export default function App() {
     localStorage.setItem("currentPage", page);
   }, [page]);
 
-  // Logout handler
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
@@ -148,7 +162,7 @@ export default function App() {
             setUpstreamTransportation={setUpstreamTransportation}
             setOffsets={setOffsets}
             setPage={setPage}
-            setNav={setNav}
+            // setNav removed; not needed with dropdowns
           />
         </Container>
       </>
@@ -198,93 +212,136 @@ export default function App() {
             Logout
           </Button>
         </Box>
-        <Navigation value={nav} setValue={setNav} tabs={TABS} />
+
+        {/* Scope + section selectors */}
+        <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}>
+          <select
+            value={currentScope}
+            onChange={(e) => {
+              const scope = e.target.value;
+              setCurrentScope(scope);
+              if (scope === "Offsets" || scope === "Summary") {
+                setCurrentSection(scope.toLowerCase()); // "offsets" or "summary"
+              } else {
+                setCurrentSection(FIRST_SECTION_BY_SCOPE[scope]);
+              }
+            }}
+          >
+            <option value="Scope 1">Scope 1</option>
+            <option value="Scope 2">Scope 2</option>
+            <option value="Scope 3">Scope 3</option>
+            <option value="Offsets">Offsets</option>
+            <option value="Summary">Summary</option>
+          </select>
+
+          {/* Only show section dropdown for scopes 1–3 */}
+          {currentScope === "Scope 1" ||
+          currentScope === "Scope 2" ||
+          currentScope === "Scope 3" ? (
+            <select
+              value={currentSection}
+              onChange={(e) => setCurrentSection(e.target.value)}
+            >
+              {SCOPE_SECTIONS[currentScope].map((s) => (
+                <option key={s.key} value={s.key}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          ) : null}
+        </Box>
+
         <Container maxWidth="md">
           <Box sx={{ mt: 3 }}>
-            {nav === 0 && (
+            {/* Scope 1 */}
+            {currentSection === "stationary" && (
               <StationaryCombustion
                 data={stationaryCombustion}
                 onResult={(val) => handleResult("stationary", val)}
                 setData={setStationaryCombustion}
               />
             )}
-            {nav === 1 && (
+            {currentSection === "mobile" && (
               <MobileSources
                 data={mobileSources}
                 onResult={(val) => handleResult("mobile", val)}
                 setData={setMobileSources}
               />
             )}
-            {nav === 2 && (
+            {currentSection === "purchasedGases" && (
               <PurchasedGases
                 data={purchasedGases}
                 onResult={(val) => handleResult("purchasedGases", val)}
                 setData={setPurchasedGases}
               />
             )}
-            {nav === 3 && (
+            {currentSection === "fireSuppression" && (
               <FireSuppression
                 data={fireSuppression}
                 onResult={(val) => handleResult("fireSuppression", val)}
                 setData={setFireSuppression}
               />
             )}
-            {nav === 4 && (
+            {currentSection === "refrig" && (
               <RefrigerationAC
                 data={refrigeration}
                 onResult={(val) => handleResult("refrig", val)}
                 setData={setRefrigeration}
               />
             )}
-            {nav === 5 && (
+
+            {/* Scope 3 & 2 */}
+            {currentSection === "waste" && (
               <Waste
                 data={waste}
                 onResult={(val) => handleResult("waste", val)}
               />
             )}
-            {nav === 6 && (
+            {currentSection === "elec" && (
               <Electricity
                 data={electricity}
                 onResult={(val) => handleResult("elec", val)}
               />
             )}
-            {nav === 7 && (
+            {currentSection === "steam" && (
               <Steam
                 data={steam}
                 onResult={(val) => handleResult("steam", val)}
               />
             )}
-            {nav === 8 && (
+            {currentSection === "busTravel" && (
               <BusinessTravel
                 data={businessTravel}
                 onResult={(val) => handleResult("busTravel", val)}
                 setData={setBusinessTravel}
               />
             )}
-            {nav === 9 && (
+            {currentSection === "commuting" && (
               <Commuting
                 data={commuting}
                 onResult={(val) => handleResult("commuting", val)}
                 setData={setCommuting}
               />
             )}
-            {nav === 10 && (
+            {currentSection === "upstream" && (
               <UpstreamTransportation
                 data={upstreamTransportation}
                 onResult={(val) => handleResult("upstream", val)}
                 setData={setUpstreamTransportation}
               />
             )}
-            {nav === 11 && (
+
+            {/* Offsets separate */}
+            {currentSection === "offsets" && (
               <Offsets
                 data={offsets}
                 onResult={(val) => handleResult("offsets", val)}
                 setData={setOffsets}
               />
             )}
-            {nav === 12 && <Summary data={results} />}
 
-            
+            {/* Summary */}
+            {currentSection === "summary" && <Summary data={results} />}
           </Box>
         </Container>
       </>
