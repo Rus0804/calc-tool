@@ -290,7 +290,7 @@ export default function UpstreamTransportation({ data = [], onResult, setData })
       </div>
 
       <p className="upstream-note">
-        For on-road full truckload, enter vehicle-miles. For rail, water, air, or LTL road shipments, enter short ton-miles directly, or product weight in short tons and distance in miles to calculate ton-miles.[file:1]
+        For on-road full truckload, enter vehicle-miles. For rail, water, air, or LTL road shipments, enter short ton-miles directly, or product weight in short tons and distance in miles to calculate ton-miles.
       </p>
     </div>
   );

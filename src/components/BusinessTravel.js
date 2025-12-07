@@ -164,7 +164,7 @@ export default function BusinessTravel({ data = [], onResult, setData }) {
       </div>
 
       <p className="bt-note">
-        Note: For air travel, enter passenger-miles; factors exclude radiative forcing. [attached_file:1]
+        Note: For air travel, enter passenger-miles; factors exclude radiative forcing.
       </p>
     </div>
   );
