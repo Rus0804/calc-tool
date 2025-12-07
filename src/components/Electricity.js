@@ -140,11 +140,14 @@ export default function Electricity({ data = [], onResult, setData }) {
         return { ...row, error, loc_co2e: 0, mkt_co2e: 0 };
       }
 
-      // location-based (always calculated)
-      const locFactor = electricityEmissionFactors[row.region];
-      const loc_co2e = calcCO2eFromFactors(row, locFactor);
-
-      // market-based (only if method is market)
+      // location-based    
+      let loc_co2e = 0;
+      if(row.method === "location"){
+        const locFactor = electricityEmissionFactors[row.region];
+        loc_co2e = calcCO2eFromFactors(row, locFactor);
+      }
+      
+      // market-based
       let mkt_co2e = 0;
       if (row.method === "market") {
         const mktFactor = {
@@ -181,8 +184,7 @@ export default function Electricity({ data = [], onResult, setData }) {
     if (onResult) {
       onResult({
         total_loc_CO2e,
-        total_mkt_CO2e,
-        rows: newRows
+        total_mkt_CO2e
       });
     }
   };
