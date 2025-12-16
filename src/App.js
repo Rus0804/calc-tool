@@ -99,7 +99,7 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem("currentPage", page);
-    
+    setCurrentScope("Scope 1");
   }, [page]);
 
   const handleLogout = async () => {
