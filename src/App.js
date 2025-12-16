@@ -79,6 +79,21 @@ export default function App() {
     setResults((r) => ({ ...r, [tab]: val }));
   }
 
+  function clearData(){
+    setStationaryCombustion([]);
+    setMobileSources([]);
+    setElectricity([]);
+    setBusinessTravel([]);
+    setCommuting([]);
+    setFireSuppression([]);
+    setOffsets([]);
+    setPurchasedGases([]);
+    setRefrigeration([]);
+    setSteam([]);
+    setUpstreamTransportation([]);
+    setWaste([]);
+  }
+
   useEffect(() => {
     async function checkSession() {
       const {
@@ -100,6 +115,7 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("currentPage", page);
     setCurrentScope("Scope 1");
+    setCurrentSection("stationary")
   }, [page]);
 
   const handleLogout = async () => {
@@ -202,6 +218,7 @@ export default function App() {
             onClick={() => {
               setPage("home");
               localStorage.setItem("rowID", "0");
+              clearData();
               setResults({});
             }}
           >
