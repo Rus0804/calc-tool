@@ -8,7 +8,6 @@ import Electricity from "./components/Electricity";
 import RefrigerationAC from "./components/RefrigerationAC";
 import Waste from "./components/Waste";
 import Summary from "./components/Summary";
-// import Navigation from "./components/Navigation"; // no longer used
 import Steam from "./components/Steam";
 import BusinessTravel from "./components/BusinessTravel";
 import Commuting from "./components/Commuting";
@@ -163,7 +162,6 @@ export default function App() {
             setUpstreamTransportation={setUpstreamTransportation}
             setOffsets={setOffsets}
             setPage={setPage}
-            // setNav removed; not needed with dropdowns
           />
         </Container>
       </>
