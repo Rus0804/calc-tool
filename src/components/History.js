@@ -76,7 +76,6 @@ export default function History({
   setFireSuppression,
   setOffsets,
   setPage,
-  setNav
 }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -154,7 +153,6 @@ export default function History({
     setOffsets(data.offsets || []);
 
     setPage("calculation");
-    setNav(0);
   }
 
   // NEW: rename handler

@@ -100,6 +100,7 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem("currentPage", page);
+    
   }, [page]);
 
   const handleLogout = async () => {
