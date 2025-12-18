@@ -232,6 +232,7 @@ export default function App() {
         {/* Scope + section selectors */}
         <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}>
           <select
+            style={{ width: 400 }} 
             value={currentScope}
             onChange={(e) => {
               const scope = e.target.value;
@@ -255,6 +256,7 @@ export default function App() {
           currentScope === "Scope 2" ||
           currentScope === "Scope 3" ? (
             <select
+              style={{ width: 400 }} 
               value={currentSection}
               onChange={(e) => setCurrentSection(e.target.value)}
             >
