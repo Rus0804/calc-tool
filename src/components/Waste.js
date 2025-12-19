@@ -71,27 +71,24 @@ export default function Waste({ data = [], onResult, setData }) {
   };
 
   const calculateEmissions = async () => {
-    const newRows = rows.map((row) => ({
-      ...row,
-      error: validateRow(row)
-    }));
+    let total_CO2e = 0;
+    
+    const newRows = rows.map((row) => {
+        const factor = wasteFactors[row.material][row.disposal]; // tCO2e / metric ton
+        const wNum = Number(row.weight);
+        const toMetricTon = mass[row.unit][BASE_UNIT]; // multiplier to metric ton
+        const materialTons = wNum * toMetricTon;
+        const co2e = materialTons * factor; // metric tons CO2e
+        row.co2e = co2e;
+        total_CO2e += co2e;
+        return ({ ...row, error: validateRow(row) })
+      }
+    );
 
     setRows(newRows);
     updateParent(newRows);
 
     if (newRows.some((r) => r.error)) return;
-
-    let total_CO2e = 0;
-
-    newRows.forEach((row) => {
-      const factor = wasteFactors[row.material][row.disposal]; // tCO2e / metric ton
-      const wNum = Number(row.weight);
-      const toMetricTon = mass[row.unit][BASE_UNIT]; // multiplier to metric ton
-      const materialTons = wNum * toMetricTon;
-      const co2e = materialTons * factor; // metric tons CO2e
-      row.co2e = co2e;
-      total_CO2e += co2e;
-    });
 
     try {
       await logInputsBatchToSupabase("waste", newRows);
@@ -118,6 +115,11 @@ export default function Waste({ data = [], onResult, setData }) {
     setRows(finalRows);
     updateParent(finalRows);
   };
+
+  const total_co2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  )
 
   return (
     <div className="waste-container">
@@ -211,6 +213,15 @@ export default function Waste({ data = [], onResult, setData }) {
         >
           Calculate Emissions
         </button>
+      </div>
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_co2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
       </div>
 
       <p className="waste-note">

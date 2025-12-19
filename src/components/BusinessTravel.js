@@ -81,7 +81,6 @@ export default function BusinessTravel({ data = [], onResult, setData }) {
       await logInputsBatchToSupabase("business_travel", newRows);
     } catch (error) {
       console.error("Failed to log business travel data:", error);
-      // Optionally show user feedback about logging failure
     }
 
     updateParent(newRows);
@@ -102,6 +101,11 @@ export default function BusinessTravel({ data = [], onResult, setData }) {
     setRows(newRows.length > 0 ? newRows : [createEmptyRow()]);
     updateParent(newRows.length > 0 ? newRows : [createEmptyRow()]);
   };
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
 
   return (
     <div className="bt-container">
@@ -166,6 +170,14 @@ export default function BusinessTravel({ data = [], onResult, setData }) {
       <p className="bt-note">
         Note: For air travel, enter passenger-miles; factors exclude radiative forcing.
       </p>
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
+      </div>
     </div>
   );
 }

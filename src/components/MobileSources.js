@@ -206,13 +206,10 @@ export default function MobileSources({ data = [], onResult, setData }) {
   };
 
   const calculateEmissions = async () => {
-    const newRows = rows.map(row => ({ ...row, error: validateRow(row) }));
-    setRows(newRows);
-
-    if (newRows.some(r => r.error)) return;
 
     let total_CO2e = 0;
-    newRows.forEach(row => {
+
+    const newRows = rows.map(row => {
       const fuelFactor = mobileCombustion.fuelTypes[row.fuel];
       const qtyNum = Number(row.qty);
       const convertedQty = convertUnit(qtyNum, row.unit, fuelFactor.usageUnit);
@@ -233,7 +230,13 @@ export default function MobileSources({ data = [], onResult, setData }) {
       const co2e = (co2 * GWP.CO2 + ch4 * GWP.CH4 + n2o * GWP.N2O) / 1000;
       total_CO2e += co2e;
       row.CO2e = co2e;
+      return ({ ...row, error: validateRow(row) })
     });
+
+    if (newRows.some(r => r.error)) return;
+
+    setRows(newRows);
+    
     await logInputsBatchToSupabase('mobile_sources', newRows);
     updateParent();
     onResult({ total_CO2e });
@@ -241,6 +244,11 @@ export default function MobileSources({ data = [], onResult, setData }) {
 
   const addRow = () => setRows([...rows, createEmptyRow()]);
   const removeRow = (index) => setRows(rows.filter((_, i) => i !== index));
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.CO2e || 0),
+    0
+  );
 
   return (
     <div className="mobile-sources">
@@ -303,6 +311,15 @@ export default function MobileSources({ data = [], onResult, setData }) {
       <div className="actions">
         <button type="button" onClick={addRow} className="add-btn">Add Row</button>
         <button type="button" onClick={calculateEmissions} className="calculate-btn">Calculate Emissions</button>
+      </div>
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
       </div>
     </div>
   );

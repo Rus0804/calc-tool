@@ -147,11 +147,18 @@ export default function RefrigerationAC({ data = [], onResult, setData }) {
           12;
       }
 
+      row.co2e = (emissionMass * gwp) / 1000;
+
       totalCo2e += (emissionMass * gwp) / 1000;
     });
 
     onResult({ co2e: totalCo2e });
   }
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
 
   return (
     <div className="refrigeration-ac">
@@ -346,6 +353,16 @@ export default function RefrigerationAC({ data = [], onResult, setData }) {
       </div>
 
       {error && <p className="error-message">{error}</p>}
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
+      </div>
+      
     </div>
   );
 }

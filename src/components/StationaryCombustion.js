@@ -112,6 +112,11 @@ export default function StationaryCombustion({ data = [], onResult, setData }) {
   const addRow = () => setRows([...rows, createEmptyRow()]);
   const removeRow = (index) => setRows(rows.filter((_, i) => i !== index));
 
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.CO2e || 0),
+    0
+  );
+
   return (
     <div className="stationary-combustion">
       <h3>Stationary Combustion</h3>
@@ -183,6 +188,15 @@ export default function StationaryCombustion({ data = [], onResult, setData }) {
         <button type="button" onClick={calculateEmissions} className="calculate-btn">
           Calculate Emissions
         </button>
+      </div>
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
       </div>
     </div>
   );

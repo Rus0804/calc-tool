@@ -141,6 +141,7 @@ export default function FireSuppression({ data = [], onResult, setData }) {
         emissions = (netEmissionMass * GWP) / 1000;
       }
       totalCo2e += emissions;
+      row.co2e = emissions;
     });
 
     await logInputsBatchToSupabase("fire_suppression", rows);
@@ -150,6 +151,11 @@ export default function FireSuppression({ data = [], onResult, setData }) {
 
     onResult({ co2e: totalCo2e });
   }
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
 
   return (
     <div className="fire-suppression">
@@ -360,6 +366,15 @@ export default function FireSuppression({ data = [], onResult, setData }) {
       </div>
 
       {error && <p className="error-message">{error}</p>}
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
+      </div>
     </div>
   );
 }

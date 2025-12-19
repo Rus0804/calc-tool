@@ -83,17 +83,16 @@ export default function PurchasedGases({ data = [], onResult, setData }) {
           purchasedGasesFactors[row.gas].units
         ).join(", ")}`;
       }
+      const { gas, qty, unit } = row;
+      const qtyInBaseUnit = Number(qty) * (1 / purchasedGasesFactors[gas].units[unit]);
+      row.co2e = qtyInBaseUnit * purchasedGasesFactors[gas].co2eFactor * 0.000453592;
+      totalCo2e += qtyInBaseUnit * purchasedGasesFactors[gas].co2eFactor * 0.000453592;
+
       return { ...row, error };
     });
     setRows(newRows);
 
     if (newRows.some(r => r.error)) return;
-
-    newRows.forEach(row => {
-      const { gas, qty, unit } = row;
-      const qtyInBaseUnit = Number(qty) * (1 / purchasedGasesFactors[gas].units[unit]);
-      totalCo2e += qtyInBaseUnit * purchasedGasesFactors[gas].co2eFactor * 0.000453592;
-    });
 
     setError("");
 
@@ -105,6 +104,11 @@ export default function PurchasedGases({ data = [], onResult, setData }) {
 
     onResult({ co2e: totalCo2e });
   }
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
 
   return (
     <div className="purchased-gases">
@@ -183,6 +187,15 @@ export default function PurchasedGases({ data = [], onResult, setData }) {
       </div>
 
       {error && <p className="error-message">{error}</p>}
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
+      </div>
     </div>
   );
 }

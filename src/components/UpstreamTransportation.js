@@ -167,6 +167,11 @@ export default function UpstreamTransportation({ data = [], onResult, setData })
     updateParent(finalRows);
   };
 
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
+
   return (
     <div className="upstream-container">
       <h2 className="upstream-title">Upstream Transportation &amp; Distribution</h2>
@@ -292,6 +297,15 @@ export default function UpstreamTransportation({ data = [], onResult, setData })
       <p className="upstream-note">
         For on-road full truckload, enter vehicle-miles. For rail, water, air, or LTL road shipments, enter short ton-miles directly, or product weight in short tons and distance in miles to calculate ton-miles.
       </p>
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
+      </div>
     </div>
   );
 }

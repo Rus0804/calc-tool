@@ -76,7 +76,6 @@ export default function Commuting({ data = [], onResult, setData }) {
         await logInputsBatchToSupabase("commuting", newRows);
       } catch (error) {
         console.error("Failed to log business travel data:", error);
-        // Optionally show user feedback about logging failure
       }
   
       updateParent(newRows);
@@ -96,6 +95,11 @@ export default function Commuting({ data = [], onResult, setData }) {
     setRows(newRows.length > 0 ? newRows : [createEmptyRow()]);
     updateParent(newRows.length > 0 ? newRows : [createEmptyRow()]);
   };
+
+  const total_CO2e = rows.reduce(
+    (sum, r) => sum + (r.co2e || 0),
+    0
+  );
 
   return (
     <div className="bt-container">
@@ -155,6 +159,15 @@ export default function Commuting({ data = [], onResult, setData }) {
         <button type="button" className="bt-button" onClick={calculateEmissions}>
           Calculate Emissions
         </button>
+      </div>
+
+      <div className="total">
+        Total CO2e:{" "}
+        <strong>
+          {total_CO2e.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+          })}{" "}
+        </strong>
       </div>
     </div>
   );
