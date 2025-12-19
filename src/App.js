@@ -313,18 +313,21 @@ export default function App() {
               <Waste
                 data={waste}
                 onResult={(val) => handleResult("waste", val)}
+                setData={setWaste}
               />
             )}
             {currentSection === "elec" && (
               <Electricity
                 data={electricity}
                 onResult={(val) => handleResult("elec", val)}
+                setData={setElectricity}
               />
             )}
             {currentSection === "steam" && (
               <Steam
                 data={steam}
                 onResult={(val) => handleResult("steam", val)}
+                setData={setSteam}
               />
             )}
             {currentSection === "busTravel" && (
